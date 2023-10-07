@@ -7,7 +7,14 @@
     <groupId>ru.ssau.tk.labochkimoi.smirnovkondorova</groupId>
     <artifactId>SmirnovKondorova</artifactId>
     <version>1.0-SNAPSHOT</version>
-
+    <dependencies>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.8.0</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
     <properties>
         <maven.compiler.source>16</maven.compiler.source>
         <maven.compiler.target>16</maven.compiler.target>

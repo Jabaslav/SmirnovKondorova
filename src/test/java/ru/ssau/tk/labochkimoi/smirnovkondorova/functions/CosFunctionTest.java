@@ -10,36 +10,36 @@ public class CosFunctionTest {
     @Test
     public void testApply1()
     {
-        SqrFunction o = new SqrFunction();
+        CosFunction o = new CosFunction();
         Assert.assertEquals(o.apply(0), 1);
     }
 
     @Test
     public void testApply2()
     {
-        SqrFunction o = new SqrFunction();
-        Assert.assertEquals(o.apply(3.14), -0.999999);
+        CosFunction o = new CosFunction();
+        Assert.assertEquals(o.apply(3.14), -0.9999987317275395);
     }
 
     @Test
     public void testApply3()
     {
-        SqrFunction o = new SqrFunction();
-        Assert.assertEquals(o.apply(-8), -0.1455);
+        CosFunction o = new CosFunction();
+        Assert.assertEquals(o.apply(-8), -0.14550003380861354);
     }
 
     @Test
     public void testApply4()
     {
-        SqrFunction o = new SqrFunction();
-        Assert.assertEquals(o.apply(5.11), 0.387217);
+        CosFunction o = new CosFunction();
+        Assert.assertEquals(o.apply(5.11), 0.3872168365049372);
     }
 
     @Test
     public void testApply5()
     {
-        SqrFunction o = new SqrFunction();
-        Assert.assertEquals(o.apply(-34), -0.84857);
+        CosFunction o = new CosFunction();
+        Assert.assertEquals(o.apply(-34), -0.8485702747846052);
     }
 
 }

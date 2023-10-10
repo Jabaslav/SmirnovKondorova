@@ -98,4 +98,53 @@ public class CompositeFunctionTest {
         CompositeFunction complexF = new CompositeFunction(a,b);
         Assert.assertEquals(complexF.apply(1.772004514666935), 3.1399999999999999);
     }
+
+    @Test
+    public void testApply11() {
+        SqrFunction source = new SqrFunction();
+        LinkedListTabulatedFunction listF = new LinkedListTabulatedFunction(source, 1, 10, 10);
+        ArrayTabulatedFunction arrayF = new ArrayTabulatedFunction(source, 1, 20, 20);
+        CompositeFunction complexF = new CompositeFunction(listF, arrayF);
+        Assert.assertEquals(complexF.apply(3), 81);
+    }
+
+    @Test
+    public void testApply12() {
+        SqrFunction source = new SqrFunction();
+        ConstantFunction con = new ConstantFunction(5);
+        LinkedListTabulatedFunction listF = new LinkedListTabulatedFunction(source, 1, 10, 10);
+        ArrayTabulatedFunction arrayF = new ArrayTabulatedFunction(con, 1, 20, 20);
+        CompositeFunction complexF = new CompositeFunction(listF, arrayF);
+        Assert.assertEquals(complexF.apply(105), 5);
+    }
+
+    @Test
+    public void testApply13() {
+        SqrFunction source = new SqrFunction();
+        NaturalLogFunction lnF = new NaturalLogFunction();
+        LinkedListTabulatedFunction listF = new LinkedListTabulatedFunction(source, 0, 10, 11);
+        ArrayTabulatedFunction arrayF = new ArrayTabulatedFunction(lnF, 1, 20, 20);
+        CompositeFunction complexF = new CompositeFunction(listF, arrayF);
+        Assert.assertEquals(complexF.apply(1), 0);
+    }
+
+    @Test
+    public void testApply14() {
+        SqrFunction source = new SqrFunction();
+        IdentityFunction identityF = new IdentityFunction();
+        LinkedListTabulatedFunction listF = new LinkedListTabulatedFunction(source, 1, 20, 20);
+        ArrayTabulatedFunction arrayF = new ArrayTabulatedFunction(identityF, 0, 10, 11);
+        CompositeFunction complexF = new CompositeFunction(listF, arrayF);
+        Assert.assertEquals(complexF.apply(2), 4);
+    }
+
+    @Test
+    public void testApply15() {
+        SqrFunction source = new SqrFunction();
+        IdentityFunction identityF = new IdentityFunction();
+        LinkedListTabulatedFunction listF = new LinkedListTabulatedFunction(source, 1, 2, 11);
+        ArrayTabulatedFunction arrayF = new ArrayTabulatedFunction(identityF, 1, 3, 21);
+        CompositeFunction complexF = new CompositeFunction(listF, arrayF);
+        Assert.assertEquals(complexF.apply(1.5), 2.2);
+    }
 }

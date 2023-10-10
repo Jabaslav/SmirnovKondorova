@@ -22,7 +22,7 @@ public abstract class AbstractTabulatedFunction implements TabulatedFunction {
             return extrapolateRight(x);
         } else {
             int index = floorIndexOfX(x);
-            if (x == getX(index)) {
+            if (index != -1) {
                 return getY(index);
             } else {
                 return interpolate(x, index);

@@ -55,5 +55,32 @@ public class IdentityFunctionTest {
         IdentityFunction o = new IdentityFunction();
         Assert.assertEquals(o.apply(-0.0000000000000000000000000001), -0.0000000000000000000000000001);
     }
+    @Test
+    public void testToString() {
+        IdentityFunction f = new IdentityFunction();
+        Assert.assertEquals("IdentityFunction", f.toString());
+    }
+
+    @Test
+    public void testEquals() {
+        IdentityFunction f1 = new IdentityFunction();
+        IdentityFunction f2 = new IdentityFunction();
+        Assert.assertEquals(f1, f2);
+    }
+
+    @Test
+    public void testHashCode() {
+        IdentityFunction f1 = new IdentityFunction();
+        IdentityFunction f2 = new IdentityFunction();
+        Assert.assertEquals(f1.hashCode(), f2.hashCode());
+    }
+
+    @Test
+    public void testClone() {
+        IdentityFunction f1 = new IdentityFunction();
+        IdentityFunction f2 = (IdentityFunction) f1.clone();
+        Assert.assertEquals(f1, f2);
+    }
+
 
 }

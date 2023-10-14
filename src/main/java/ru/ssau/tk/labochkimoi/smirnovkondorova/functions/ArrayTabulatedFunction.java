@@ -1,9 +1,8 @@
 package ru.ssau.tk.labochkimoi.smirnovkondorova.functions;
 import java.util.Arrays;
-public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements MathFunction {
-    private double[] xValues;
-    private double[] yValues;
-    private int count;
+public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
+    private final double[] xValues;
+    private final double[] yValues;
 
     public ArrayTabulatedFunction(double[] xValues, double[] yValues) {
         this.xValues = Arrays.copyOf(xValues, xValues.length);

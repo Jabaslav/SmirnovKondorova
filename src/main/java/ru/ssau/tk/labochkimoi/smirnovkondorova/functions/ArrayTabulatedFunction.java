@@ -1,14 +1,10 @@
 package ru.ssau.tk.labochkimoi.smirnovkondorova.functions;
 import java.util.Arrays;
-public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements MathFunction {
-    private double[] xValues;
-    private double[] yValues;
-    private int count;
+public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
+    private final double[] xValues;
+    private final double[] yValues;
 
     public ArrayTabulatedFunction(double[] xValues, double[] yValues) {
-        if (xValues.length != yValues.length) {
-            throw new Error("Error");
-        }
         this.xValues = Arrays.copyOf(xValues, xValues.length);
         this.yValues = Arrays.copyOf(yValues, yValues.length);
         this.count = xValues.length;

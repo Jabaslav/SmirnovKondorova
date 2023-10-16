@@ -1,5 +1,5 @@
 package ru.ssau.tk.labochkimoi.smirnovkondorova.functions;
-public class IdentityFunction implements MathFunction
+public class IdentityFunction implements MathFunction, Cloneable
 {
     public double apply(double x) {
         return(x);

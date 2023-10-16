@@ -353,8 +353,8 @@ public class LinkedListTabulatedFunctionTest {
         LinkedListTabulatedFunction.Node node2 = new LinkedListTabulatedFunction.Node(2.1, 3.33);
         LinkedListTabulatedFunction.Node node3 = new LinkedListTabulatedFunction.Node(4.1, 5.2);
         assertEquals(node.equals(node2), node2.equals(node));
-        assertEquals(node.equals(node2), true);
-        assertEquals(node.equals(node3), false);
+        assertEquals(node2, node);
+        assertNotEquals(node3, node);
         assertEquals(node.equals(node3), node3.equals(node));
     }
 
@@ -397,8 +397,8 @@ public class LinkedListTabulatedFunctionTest {
         SqrFunction o = new SqrFunction();
         LinkedListTabulatedFunction listF1 = new LinkedListTabulatedFunction(o, 1, 3, 3);
         LinkedListTabulatedFunction listF2 = listF1.clone();
-        assertTrue(listF1.equals(listF2));
-        assertFalse(listF1 == listF2);
+        assertEquals(listF2, listF1);
+        assertNotSame(listF1, listF2);
         assertEquals(listF1.toString(), listF2.toString());
     }
 

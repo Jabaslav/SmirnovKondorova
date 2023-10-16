@@ -325,4 +325,47 @@ public class LinkedListTabulatedFunctionTest {
         Assert.assertEquals(listF.rightBound(), 10);
 
     }
+
+    @Test
+    public void testNodeHashCode1() {
+        LinkedListTabulatedFunction.Node node = new LinkedListTabulatedFunction.Node(2.1, 3.33);
+        LinkedListTabulatedFunction.Node node2 = new LinkedListTabulatedFunction.Node(2.1, 3.33);
+        LinkedListTabulatedFunction.Node node3 = new LinkedListTabulatedFunction.Node(4.1, 5.2);
+        assertEquals(node.hashCode(), node2.hashCode());
+        assertNotEquals(node.hashCode(), node3.hashCode());
+    }
+
+    @Test
+    public void testNodeToString1() {
+        LinkedListTabulatedFunction.Node node = new LinkedListTabulatedFunction.Node(2.1, 3.33);
+        assertEquals(node.toString(), "(2.1; 3.33), где 2.1 и 3.33 - абсцисса и ордината точки соответственно.");
+    }
+
+    @Test
+    public void testNodeToString2() {
+        LinkedListTabulatedFunction.Node node = new LinkedListTabulatedFunction.Node(12.3, 56.66);
+        assertEquals(node.toString(), "(12.3; 56.66), где 12.3 и 56.66 - абсцисса и ордината точки соответственно.");
+    }
+
+    @Test
+    public void testNodeEquals1() {
+        LinkedListTabulatedFunction.Node node = new LinkedListTabulatedFunction.Node(2.1, 3.33);
+        LinkedListTabulatedFunction.Node node2 = new LinkedListTabulatedFunction.Node(2.1, 3.33);
+        LinkedListTabulatedFunction.Node node3 = new LinkedListTabulatedFunction.Node(4.1, 5.2);
+        assertEquals(node.equals(node2), node2.equals(node));
+        assertEquals(node.equals(node2), true);
+        assertEquals(node.equals(node3), false);
+        assertEquals(node.equals(node3), node3.equals(node));
+    }
+
+    @Test
+    public void testNodeClone() throws CloneNotSupportedException {
+        LinkedListTabulatedFunction.Node node = new LinkedListTabulatedFunction.Node(2.1, 3.33);
+        LinkedListTabulatedFunction.Node node2 = node.clone();
+        assertEquals(node.equals(node2), node2.equals(node));
+        assertEquals(node.hashCode(), node2.hashCode());
+        assertTrue(node.equals(node2));
+        assertFalse(node==node2);
+    }
+
 }

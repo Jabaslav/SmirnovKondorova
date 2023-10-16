@@ -1,12 +1,54 @@
 package ru.ssau.tk.labochkimoi.smirnovkondorova.functions;
 
+
 public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
-    Node head;
+    private Node head;
+
+    protected static class Node implements Cloneable {
+        public Node next;
+        public Node prev;
+        public double x;
+        public double y;
+
+        Node(double x, double y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        @Override
+        public String toString() {
+            return ("(" + x + "; " + y + "), где " + x + " и " + y + " - абсцисса и ордината точки соответственно.");
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o)
+                return true;
+            if (o == null || !(this.getClass() == o.getClass()))
+                return false;
+            Node other = (Node) o;
+            boolean xEquals = (this.x == other.x);
+            boolean yEquals = (this.y == other.y);
+            return xEquals && yEquals;
+        }
+
+        @Override
+        public int hashCode() {
+            int hashCode = (int) (Double.doubleToLongBits(x) & -2147483648);
+            hashCode ^= (int) (Double.doubleToLongBits(x) >> 32);
+            hashCode ^= (int) (Double.doubleToLongBits(y) & -2147483648);
+            hashCode ^= (int) (Double.doubleToLongBits(y) >> 32);
+            return hashCode;
+        }
+
+        @Override
+        public Node clone() throws CloneNotSupportedException {
+            return (Node) super.clone();
+        }
+    }
 
     private void addNode(double x, double y) {
-        Node newNode = new Node();
-        newNode.x = x;
-        newNode.y = y;
+        Node newNode = new Node(x, y);
         if (head == null) {
             head = newNode;
             head.next = head;

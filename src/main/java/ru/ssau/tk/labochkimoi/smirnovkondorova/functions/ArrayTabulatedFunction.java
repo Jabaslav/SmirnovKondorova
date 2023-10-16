@@ -102,4 +102,29 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
         else
             return (yValues[count - 2] + (((yValues[count - 1] - yValues[count - 2]) / (xValues[count - 1] - xValues[count - 2])) * (x - xValues[count - 2])));
     }
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < count; i++) {
+            sb.append("(").append(xValues[i]).append(";").append(yValues[i]).append(") ");
+        }
+        return sb.toString();
+    }
+    public boolean equals(Object o) {
+        return this.getClass() == o.getClass() &&
+                Arrays.equals(((ArrayTabulatedFunction) o).xValues, xValues) &&
+                Arrays.equals(((ArrayTabulatedFunction) o).yValues, yValues);
+    }
+    public int hashCode() {
+        int result = 1;
+        for (int i = 0; i < count; i++) {
+            long xBits = Double.doubleToLongBits(xValues[i]);
+            long yBits = Double.doubleToLongBits(yValues[i]);
+            result = 31 * result + (int) (xBits ^ (xBits >>> 32));
+            result = 31 * result + (int) (yBits ^ (yBits >>> 32));
+        }
+        return result;
+    }
+    public Object clone() {
+        return new ArrayTabulatedFunction(xValues.clone(), yValues.clone());
+    }
 }

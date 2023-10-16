@@ -224,7 +224,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
             return false;
         if (!(o instanceof TabulatedFunction))
             return false;
-        if (o instanceof LinkedListTabulatedFunction) {
+        if (o.getClass() == this.getClass()) {
             LinkedListTabulatedFunction other = (LinkedListTabulatedFunction) o;
             if (other.count != count)
                 return false;

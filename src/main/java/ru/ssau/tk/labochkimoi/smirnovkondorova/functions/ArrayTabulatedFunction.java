@@ -1,6 +1,6 @@
 package ru.ssau.tk.labochkimoi.smirnovkondorova.functions;
 import java.util.Arrays;
-public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
+public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements TabulatedFunction, Cloneable {
     private final double[] xValues;
     private final double[] yValues;
 

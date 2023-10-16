@@ -40,8 +40,8 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         }
 
         @Override
-        public Node clone() throws CloneNotSupportedException {
-            return (Node) super.clone();
+        public Node clone()  {
+            return new Node(x, y);
         }
     }
 
@@ -215,6 +215,16 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         return (head.prev.x);
     }
 
+    @Override
+    public String toString() {
+        StringBuilder list = new StringBuilder();
+        Node counter = head;
+        for (int i = 0; i < count; i++) {
+            list.append("(").append(counter.x).append("; ").append(counter.y).append(") ");
+            counter = counter.next;
+        }
+        return list.toString();
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -224,7 +234,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
             return false;
         if (!(o instanceof TabulatedFunction))
             return false;
-        if (o.getClass() == this.getClass()) {
+        if (o.getClass()==this.getClass()) {
             LinkedListTabulatedFunction other = (LinkedListTabulatedFunction) o;
             if (other.count != count)
                 return false;
@@ -245,18 +255,17 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
 
     @Override
     public int hashCode() {
-
         int hashCode = 7;
         Node counter = head;
         for (int i = 0; i < count; i++) {
+            hashCode = hashCode * 7 + counter.hashCode();
             counter = counter.next;
-            hashCode = hashCode*7 + counter.hashCode();
         }
         return hashCode;
     }
 
     @Override
-    public LinkedListTabulatedFunction clone() throws CloneNotSupportedException {
+    public LinkedListTabulatedFunction clone() {
         double[] xValues = new double[count];
         double[] yValues = new double[count];
 

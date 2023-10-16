@@ -361,7 +361,7 @@ public class LinkedListTabulatedFunctionTest {
     @Test
     public void testNodeClone() throws CloneNotSupportedException {
         LinkedListTabulatedFunction.Node node = new LinkedListTabulatedFunction.Node(2.1, 3.33);
-        LinkedListTabulatedFunction.Node node2 = node.clone();
+        LinkedListTabulatedFunction.Node node2 = (LinkedListTabulatedFunction.Node) node.clone();
         assertEquals(node, node2);
         assertEquals(node.hashCode(), node2.hashCode());
         assertEquals(node2, node);
@@ -396,7 +396,7 @@ public class LinkedListTabulatedFunctionTest {
     public void testLLTFClone() throws CloneNotSupportedException {
         SqrFunction o = new SqrFunction();
         LinkedListTabulatedFunction listF1 = new LinkedListTabulatedFunction(o, 1, 3, 3);
-        LinkedListTabulatedFunction listF2 = listF1.clone();
+        LinkedListTabulatedFunction listF2 = (LinkedListTabulatedFunction) listF1.clone();
         assertEquals(listF2, listF1);
         assertNotSame(listF1, listF2);
         assertEquals(listF1.toString(), listF2.toString());

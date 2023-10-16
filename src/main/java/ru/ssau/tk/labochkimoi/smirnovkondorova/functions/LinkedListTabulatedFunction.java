@@ -1,7 +1,7 @@
 package ru.ssau.tk.labochkimoi.smirnovkondorova.functions;
 
 
-public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
+public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Cloneable {
     private Node head;
 
     protected static class Node implements Cloneable {
@@ -34,10 +34,8 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
 
         @Override
         public int hashCode() {
-            int hashCode = (int) (Double.doubleToLongBits(x) & -2147483648);
-            hashCode ^= (int) (Double.doubleToLongBits(x) >> 32);
-            hashCode ^= (int) (Double.doubleToLongBits(y) & -2147483648);
-            hashCode ^= (int) (Double.doubleToLongBits(y) >> 32);
+            int hashCode = 7 * Double.hashCode(x);
+            hashCode = 7 * hashCode + Double.hashCode(y);
             return hashCode;
         }
 
@@ -218,4 +216,56 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null)
+            return false;
+        if (!(o instanceof TabulatedFunction))
+            return false;
+        if (o instanceof LinkedListTabulatedFunction) {
+            LinkedListTabulatedFunction other = (LinkedListTabulatedFunction) o;
+            if (other.count != count)
+                return false;
+            else {
+                Node counter1 = head;
+                Node counter2 = other.head;
+                for (int i = 0; i < count; i++) {
+                    if (counter1.x != counter2.x || counter1.y != counter2.y)
+                        return false;
+                    counter1 = counter1.next;
+                    counter2 = counter2.next;
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+
+        int hashCode = 7;
+        Node counter = head;
+        for (int i = 0; i < count; i++) {
+            counter = counter.next;
+            hashCode = hashCode*7 + counter.hashCode();
+        }
+        return hashCode;
+    }
+
+    @Override
+    public LinkedListTabulatedFunction clone() throws CloneNotSupportedException {
+        double[] xValues = new double[count];
+        double[] yValues = new double[count];
+
+        Node counter = head;
+        for (int i = 0; i < count; i++) {
+            xValues[i] = counter.x;
+            yValues[i] = counter.y;
+            counter = counter.next;
+        }
+        return (new LinkedListTabulatedFunction(xValues, yValues));
+    }
 }

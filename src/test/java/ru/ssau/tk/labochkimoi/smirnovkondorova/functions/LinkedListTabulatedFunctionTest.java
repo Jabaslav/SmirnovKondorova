@@ -362,10 +362,70 @@ public class LinkedListTabulatedFunctionTest {
     public void testNodeClone() throws CloneNotSupportedException {
         LinkedListTabulatedFunction.Node node = new LinkedListTabulatedFunction.Node(2.1, 3.33);
         LinkedListTabulatedFunction.Node node2 = node.clone();
-        assertEquals(node.equals(node2), node2.equals(node));
+        assertEquals(node, node2);
         assertEquals(node.hashCode(), node2.hashCode());
-        assertTrue(node.equals(node2));
-        assertFalse(node==node2);
+        assertEquals(node2, node);
+        assertNotSame(node, node2);
     }
 
+    @Test
+    public void testLLTFtoString1() {
+        IdentityFunction o = new IdentityFunction();
+        double[] xVal = new double[]{1, 2, 3, 4, 5};
+        double[] yVal = new double[xVal.length];
+        for (int i = 0; i < xVal.length; i++) {
+            yVal[i] = o.apply(xVal[i]);
+        }
+        LinkedListTabulatedFunction listF = new LinkedListTabulatedFunction(xVal, yVal);
+        assertEquals(listF.toString(), "(1.0; 1.0) (2.0; 2.0) (3.0; 3.0) (4.0; 4.0) (5.0; 5.0) ");
+    }
+
+    @Test
+    public void testLLTFtoString2() {
+        SqrFunction o = new SqrFunction();
+        double[] xVal = new double[]{1, 2, 3, 4, 5};
+        double[] yVal = new double[xVal.length];
+        for (int i = 0; i < xVal.length; i++) {
+            yVal[i] = o.apply(xVal[i]);
+        }
+        LinkedListTabulatedFunction listF = new LinkedListTabulatedFunction(xVal, yVal);
+        assertEquals(listF.toString(), "(1.0; 1.0) (2.0; 4.0) (3.0; 9.0) (4.0; 16.0) (5.0; 25.0) ");
+    }
+
+    @Test
+    public void testLLTFClone() throws CloneNotSupportedException {
+        SqrFunction o = new SqrFunction();
+        LinkedListTabulatedFunction listF1 = new LinkedListTabulatedFunction(o, 1, 3, 3);
+        LinkedListTabulatedFunction listF2 = listF1.clone();
+        assertTrue(listF1.equals(listF2));
+        assertFalse(listF1 == listF2);
+        assertEquals(listF1.toString(), listF2.toString());
+    }
+
+    @Test
+    public void testLLTFEquals1() {
+        IdentityFunction o = new IdentityFunction();
+        LinkedListTabulatedFunction listF1 = new LinkedListTabulatedFunction(o, 1, 3, 3);
+        LinkedListTabulatedFunction listF2 = new LinkedListTabulatedFunction(o, 1, 3, 3);
+        LinkedListTabulatedFunction listF3 = new LinkedListTabulatedFunction(o, 1, 4, 4);
+        LinkedListTabulatedFunction listF4 = new LinkedListTabulatedFunction(o, 1, 3.6, 3);
+        assertEquals(listF2, listF1);
+        assertNotEquals(listF3, listF1);
+        assertEquals(listF1.equals(listF2), listF2.equals(listF1));
+        assertEquals(listF1.equals(listF3), listF3.equals(listF1));
+        assertNotEquals(listF1, listF4);
+    }
+
+    @Test
+    public void testLLTFHashCode1() {
+        IdentityFunction o = new IdentityFunction();
+        LinkedListTabulatedFunction listF1 = new LinkedListTabulatedFunction(o, 1, 3, 3);
+        LinkedListTabulatedFunction listF2 = new LinkedListTabulatedFunction(o, 1, 3, 3);
+        LinkedListTabulatedFunction listF3 = new LinkedListTabulatedFunction(o, 1, 4, 4);
+        assertEquals(listF1.hashCode(), listF2.hashCode());
+        assertNotEquals(listF1.hashCode(), listF3.hashCode());
+        listF1.setY(0, 1.1);
+        assertNotEquals(listF1.hashCode(), listF2.hashCode());
+
+    }
 }

@@ -66,10 +66,13 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
 
     public LinkedListTabulatedFunction(double[] xValues, double[] yValues) throws IllegalArgumentException {
         int length = xValues.length;
-        if (length < 2)
-            throw new IllegalArgumentException("Длина меньше минимальной");
-        for (int i = 0; i < length; i++)
-            addNode(xValues[i], yValues[i]);
+        if (length < 2){
+            throw new IllegalArgumentException("Длина меньше минимальной");} else {
+            checkLengthIsTheSame(xValues, yValues);
+            checkSorted(xValues);
+            for (int i = 0; i < length; i++)
+                addNode(xValues[i], yValues[i]);
+        }
     }
 
     public LinkedListTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) throws IllegalArgumentException {
@@ -87,7 +90,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
             addNode(xFrom, source.apply(xFrom));
             xFrom += d;
         }
-            addNode(xTo, source.apply(xTo));
+        addNode(xTo, source.apply(xTo));
     }
 
 
@@ -123,32 +126,32 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
 
 
     protected double extrapolateLeft(double x) {
-            double leftX = getX(0);
-            double rightX = getX(1);
-            double leftY = getY(0);
-            double rightY = getY(1);
+        double leftX = getX(0);
+        double rightX = getX(1);
+        double leftY = getY(0);
+        double rightY = getY(1);
 
-            return interpolate(x, leftX, rightX, leftY, rightY);
+        return interpolate(x, leftX, rightX, leftY, rightY);
     }
 
 
     protected double extrapolateRight(double x) {
-            double leftX = getX(count - 2);
-            double rightX = getX(count - 1);
-            double leftY = getY(count - 2);
-            double rightY = getY(count - 1);
+        double leftX = getX(count - 2);
+        double rightX = getX(count - 1);
+        double leftY = getY(count - 2);
+        double rightY = getY(count - 1);
 
-            return interpolate(x, leftX, rightX, leftY, rightY);
+        return interpolate(x, leftX, rightX, leftY, rightY);
     }
 
 
     protected double interpolate(double x, int floorIndex) {
-            double leftX = getX(floorIndex);
-            double rightX = getX(floorIndex + 1);
-            double leftY = getY(floorIndex);
-            double rightY = getY(floorIndex + 1);
+        double leftX = getX(floorIndex);
+        double rightX = getX(floorIndex + 1);
+        double leftY = getY(floorIndex);
+        double rightY = getY(floorIndex + 1);
 
-            return interpolate(x, leftX, rightX, leftY, rightY);
+        return interpolate(x, leftX, rightX, leftY, rightY);
     }
 
 
@@ -285,16 +288,16 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
             @Override
             public Point next() throws NoSuchElementException
             {
-            if (this.hasNext()) {
-                Point p = new Point(node.x, node.y);
-                if (node==head.prev)
-                    node=null;
-                else
-                    node = node.next;
+                if (this.hasNext()) {
+                    Point p = new Point(node.x, node.y);
+                    if (node==head.prev)
+                        node=null;
+                    else
+                        node = node.next;
 
-                return p;
-            } else
-                throw new NoSuchElementException();
+                    return p;
+                } else
+                    throw new NoSuchElementException();
             }
         };
         return iterator;

@@ -6,12 +6,16 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
     private final double[] xValues;
     private final double[] yValues;
 
-    public ArrayTabulatedFunction(double[] xValues, double[] yValues) throws IllegalArgumentException {
-        if (xValues.length<2)
+    public ArrayTabulatedFunction(double[] xValues, double[] yValues) {
+        if (xValues.length < 2 || yValues.length < 2) {
             throw new IllegalArgumentException("Длина меньше минимальной");
-        this.xValues = Arrays.copyOf(xValues, xValues.length);
-        this.yValues = Arrays.copyOf(yValues, yValues.length);
-        this.count = xValues.length;
+        } else {
+            checkLengthIsTheSame(xValues, yValues);
+            checkSorted(xValues);
+            this.xValues = Arrays.copyOf(xValues, xValues.length);
+            this.yValues = Arrays.copyOf(yValues, yValues.length);
+            this.count = xValues.length;
+        }
     }
 
     public ArrayTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) throws IllegalArgumentException {
@@ -88,18 +92,18 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
     }
 
     public double interpolate(double x, int floorIndex) {
-            double leftX = getX(floorIndex - 1);
-            double rightX = getX(floorIndex);
-            double leftY = getY(floorIndex - 1);
-            double rightY = getY(floorIndex);
-            return interpolate(x, leftX, rightX, leftY, rightY);
+        double leftX = getX(floorIndex - 1);
+        double rightX = getX(floorIndex);
+        double leftY = getY(floorIndex - 1);
+        double rightY = getY(floorIndex);
+        return interpolate(x, leftX, rightX, leftY, rightY);
     }
     protected double extrapolateLeft(double x) {
-            return (yValues[0] + (((yValues[1] - yValues[0]) / (xValues[1] - xValues[0])) * (x - xValues[0])));
+        return (yValues[0] + (((yValues[1] - yValues[0]) / (xValues[1] - xValues[0])) * (x - xValues[0])));
     }
 
     protected double extrapolateRight(double x) {
-            return (yValues[count - 2] + (((yValues[count - 1] - yValues[count - 2]) / (xValues[count - 1] - xValues[count - 2])) * (x - xValues[count - 2])));
+        return (yValues[count - 2] + (((yValues[count - 1] - yValues[count - 2]) / (xValues[count - 1] - xValues[count - 2])) * (x - xValues[count - 2])));
     }
     public String toString() {
         StringBuilder sb = new StringBuilder();

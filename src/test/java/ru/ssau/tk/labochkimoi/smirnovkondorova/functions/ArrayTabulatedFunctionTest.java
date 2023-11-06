@@ -69,10 +69,11 @@ public class ArrayTabulatedFunctionTest {
     void toStringTest() {
         Assert.assertEquals("(1.0;10.0) (2.0;20.0) (3.0;30.0) (4.0;40.0) (5.0;50.0) ", arrayTabulatedFunction.toString());
     }
+
     @Test
     void equalsTest() {
         ArrayTabulatedFunction arrayTabulatedFunctionTest = new ArrayTabulatedFunction(xValue, yValue);
-        Assert.assertEquals(arrayTabulatedFunction, arrayTabulatedFunctionTest);
+        Assert.assertTrue(arrayTabulatedFunction.equals(arrayTabulatedFunctionTest));
     }
     @Test
     void hashCodeTest() {

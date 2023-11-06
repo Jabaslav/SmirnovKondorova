@@ -6,13 +6,17 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
     private final double[] xValues;
     private final double[] yValues;
 
-    public ArrayTabulatedFunction(double[] xValues, double[] yValues) {
+    public ArrayTabulatedFunction(double[] xValues, double[] yValues) throws IllegalArgumentException {
+        if (xValues.length<2)
+            throw new IllegalArgumentException("Длина меньше минимальной");
         this.xValues = Arrays.copyOf(xValues, xValues.length);
         this.yValues = Arrays.copyOf(yValues, yValues.length);
         this.count = xValues.length;
     }
 
-    public ArrayTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
+    public ArrayTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) throws IllegalArgumentException {
+        if (count<2)
+            throw new IllegalArgumentException("Длина меньше минимальной");
         if (xFrom > xTo) {
             double temp = xFrom;
             xFrom = xTo;
@@ -71,8 +75,9 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
         return -1;
     }
 
-    protected int floorIndexOfX(double x) {
-        if (xValues[0] > x) return 0;
+    protected int floorIndexOfX(double x) throws IllegalArgumentException {
+        if (xValues[0] > x)
+            throw new IllegalArgumentException("x меньше левой границы");
         else if (xValues[count - 1] < x) return count;
         else {
             for (int index = 0; ; index++) {
@@ -83,25 +88,17 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
     }
 
     public double interpolate(double x, int floorIndex) {
-        if (count == 1) {
-            return yValues[0];
-        } else {
             double leftX = getX(floorIndex - 1);
             double rightX = getX(floorIndex);
             double leftY = getY(floorIndex - 1);
             double rightY = getY(floorIndex);
             return interpolate(x, leftX, rightX, leftY, rightY);
-        }
     }
     protected double extrapolateLeft(double x) {
-        if (count == 1) return yValues[0];
-        else
             return (yValues[0] + (((yValues[1] - yValues[0]) / (xValues[1] - xValues[0])) * (x - xValues[0])));
     }
 
     protected double extrapolateRight(double x) {
-        if (count == 1) return yValues[0];
-        else
             return (yValues[count - 2] + (((yValues[count - 1] - yValues[count - 2]) / (xValues[count - 1] - xValues[count - 2])) * (x - xValues[count - 2])));
     }
     public String toString() {

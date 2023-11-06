@@ -50,7 +50,6 @@ public class ArrayTabulatedFunctionTest {
     }
     @Test
     void floorIndexOfX() {
-        Assert.assertEquals(0, o.floorIndexOfX(-10));
         Assert.assertEquals(5, o.floorIndexOfX(10));
     }
     @Test
@@ -84,5 +83,24 @@ public class ArrayTabulatedFunctionTest {
     void cloneTest() {
         Object arrayTabulatedFunctionTest = arrayTabulatedFunction.clone();
         Assert.assertEquals(arrayTabulatedFunction, arrayTabulatedFunctionTest);
+    }
+
+    @Test (expectedExceptions={IllegalArgumentException.class})
+    void IllegalArgumentTest1()
+    {
+        SqrFunction o = new SqrFunction();
+        double[] xVal = new double[]{1.1};
+        double[] yVal = new double[xVal.length];
+        for (int i = 0; i < xVal.length; i++) {
+            yVal[i] = o.apply(xVal[i]);
+        }
+        ArrayTabulatedFunction arrayTabulatedFunction1 = new ArrayTabulatedFunction(xVal, yVal);
+    }
+
+    @Test (expectedExceptions={IllegalArgumentException.class})
+    void IllegalArgumentTest2()
+    {
+        ArrayTabulatedFunction arrayTabulatedFunction1 = new ArrayTabulatedFunction(xValue, yValue);
+        arrayTabulatedFunction1.floorIndexOfX(0);
     }
 }

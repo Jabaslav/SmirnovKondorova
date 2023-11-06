@@ -2,6 +2,7 @@ package ru.ssau.tk.labochkimoi.smirnovkondorova.functions;
 
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Cloneable {
     private Node head;
@@ -269,8 +270,33 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         return (new LinkedListTabulatedFunction(xValues, yValues));
     }
 
-    public Iterator<Point> iterator() throws UnsupportedOperationException
+    public Iterator<Point> iterator()
     {
-        throw new UnsupportedOperationException();
+        Iterator<Point> iterator = new Iterator<Point>()
+        {
+            private Node node = head;
+            @Override
+            public boolean hasNext()
+            {
+
+                return (node!=null);
+            }
+
+            @Override
+            public Point next() throws NoSuchElementException
+            {
+            if (this.hasNext()) {
+                Point p = new Point(node.x, node.y);
+                if (node==head.prev)
+                    node=null;
+                else
+                    node = node.next;
+
+                return p;
+            } else
+                throw new NoSuchElementException();
+            }
+        };
+        return iterator;
     }
 }

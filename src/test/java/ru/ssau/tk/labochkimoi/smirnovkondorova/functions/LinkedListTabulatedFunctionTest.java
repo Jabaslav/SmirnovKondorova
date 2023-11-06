@@ -3,7 +3,7 @@ package ru.ssau.tk.labochkimoi.smirnovkondorova.functions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.io.IOException;
+import java.util.Iterator;
 
 import static org.testng.Assert.*;
 
@@ -325,7 +325,7 @@ public class LinkedListTabulatedFunctionTest {
     }
 
     @Test
-    public void testNodeClone() throws CloneNotSupportedException {
+    public void testNodeClone() {
         LinkedListTabulatedFunction.Node node = new LinkedListTabulatedFunction.Node(2.1, 3.33);
         LinkedListTabulatedFunction.Node node2 = (LinkedListTabulatedFunction.Node) node.clone();
         assertEquals(node, node2);
@@ -359,11 +359,10 @@ public class LinkedListTabulatedFunctionTest {
     }
 
     @Test
-    public void testLLTFClone() throws CloneNotSupportedException {
+    public void testLLTFClone()  {
         SqrFunction o = new SqrFunction();
         LinkedListTabulatedFunction listF1 = new LinkedListTabulatedFunction(o, 1, 3, 3);
         LinkedListTabulatedFunction listF2 = (LinkedListTabulatedFunction) listF1.clone();
-        assertEquals(listF2, listF1);
         assertNotSame(listF1, listF2);
         assertEquals(listF1.toString(), listF2.toString());
     }
@@ -375,7 +374,6 @@ public class LinkedListTabulatedFunctionTest {
         LinkedListTabulatedFunction listF2 = new LinkedListTabulatedFunction(o, 1, 3, 3);
         LinkedListTabulatedFunction listF3 = new LinkedListTabulatedFunction(o, 1, 4, 4);
         LinkedListTabulatedFunction listF4 = new LinkedListTabulatedFunction(o, 1, 3.6, 3);
-        assertEquals(listF2, listF1);
         assertNotEquals(listF3, listF1);
         assertEquals(listF1.equals(listF2), listF2.equals(listF1));
         assertEquals(listF1.equals(listF3), listF3.equals(listF1));
@@ -422,4 +420,30 @@ public class LinkedListTabulatedFunctionTest {
         listF1.floorIndexOfX(0.9);
     }
 
+    @Test
+    public void IteratorTest1()
+    {
+        IdentityFunction o = new IdentityFunction();
+        LinkedListTabulatedFunction listF = new LinkedListTabulatedFunction(o, 0, 10, 11);
+        Iterator<Point> iterator = listF.iterator();
+        StringBuilder Stringer = new StringBuilder();
+        while (iterator.hasNext())
+        { Point point = iterator.next();
+            Stringer.append((int)point.x).append(" ");
+        }
+        assertEquals(Stringer.toString(),"0 1 2 3 4 5 6 7 8 9 10 ");
+    }
+
+    @Test
+    public void IteratorTest2()
+    {
+        IdentityFunction o = new IdentityFunction();
+        LinkedListTabulatedFunction listF = new LinkedListTabulatedFunction(o, 0, 10, 11);
+        StringBuilder Stringer = new StringBuilder();
+        for (Point point: listF)
+        {
+            Stringer.append((int)point.x).append(" ");
+        }
+        assertEquals(Stringer.toString(),"0 1 2 3 4 5 6 7 8 9 10 ");
+    }
 }

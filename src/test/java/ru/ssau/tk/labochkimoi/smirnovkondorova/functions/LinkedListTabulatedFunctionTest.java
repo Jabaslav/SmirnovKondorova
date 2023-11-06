@@ -3,21 +3,11 @@ package ru.ssau.tk.labochkimoi.smirnovkondorova.functions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
+
 import static org.testng.Assert.*;
 
 public class LinkedListTabulatedFunctionTest {
-
-    @Test
-    public void testFloorIndexOfX1() {
-        SqrFunction o = new SqrFunction();
-        double[] xVal = new double[]{1.1, 1.2, 1.3, 1.4, 1.5};
-        double[] yVal = new double[xVal.length];
-        for (int i = 0; i < xVal.length; i++) {
-            yVal[i] = o.apply(xVal[i]);
-        }
-        LinkedListTabulatedFunction listF = new LinkedListTabulatedFunction(xVal, yVal);
-        Assert.assertEquals(listF.floorIndexOfX(1), 0);
-    }
 
     @Test
     public void testFloorIndexOfX2() {
@@ -41,18 +31,6 @@ public class LinkedListTabulatedFunctionTest {
         }
         LinkedListTabulatedFunction listF = new LinkedListTabulatedFunction(xVal, yVal);
         Assert.assertEquals(listF.floorIndexOfX(1.3), 2);
-    }
-
-    @Test
-    public void testFloorIndexOfX4() {
-        SqrFunction o = new SqrFunction();
-        double[] xVal = new double[]{1.1, 1.2, 1.3, 1.4, 1.5};
-        double[] yVal = new double[xVal.length];
-        for (int i = 0; i < xVal.length; i++) {
-            yVal[i] = o.apply(xVal[i]);
-        }
-        LinkedListTabulatedFunction listF = new LinkedListTabulatedFunction(xVal, yVal);
-        Assert.assertEquals(listF.floorIndexOfX(-1.11), 0);
     }
 
     @Test
@@ -139,18 +117,6 @@ public class LinkedListTabulatedFunctionTest {
         }
         LinkedListTabulatedFunction listF = new LinkedListTabulatedFunction(xVal, yVal);
         Assert.assertEquals(listF.getCount(), 10);
-    }
-
-    @Test
-    public void testGetCount3() {
-        SqrFunction o = new SqrFunction();
-        double[] xVal = new double[]{1.1};
-        double[] yVal = new double[xVal.length];
-        for (int i = 0; i < xVal.length; i++) {
-            yVal[i] = o.apply(xVal[i]);
-        }
-        LinkedListTabulatedFunction listF = new LinkedListTabulatedFunction(xVal, yVal);
-        Assert.assertEquals(listF.getCount(), 1);
     }
 
     @Test
@@ -428,4 +394,32 @@ public class LinkedListTabulatedFunctionTest {
         assertNotEquals(listF1.hashCode(), listF2.hashCode());
 
     }
+
+    @Test (expectedExceptions={IllegalArgumentException.class})
+    public void IllegalArgumentTest1()
+    {
+        IdentityFunction o = new IdentityFunction();
+        LinkedListTabulatedFunction listF1 = new LinkedListTabulatedFunction(o, 1, 3, 1);
+    }
+
+    @Test (expectedExceptions={IllegalArgumentException.class})
+    public void IllegalArgumentTest2()
+    {
+        SqrFunction o = new SqrFunction();
+        double[] xVal = new double[]{1.1};
+        double[] yVal = new double[xVal.length];
+        for (int i = 0; i < xVal.length; i++) {
+            yVal[i] = o.apply(xVal[i]);
+        }
+        LinkedListTabulatedFunction listF = new LinkedListTabulatedFunction(xVal, yVal);
+    }
+
+    @Test (expectedExceptions={IllegalArgumentException.class})
+    public void IllegalArgumentTest3()
+    {
+        IdentityFunction o = new IdentityFunction();
+        LinkedListTabulatedFunction listF1 = new LinkedListTabulatedFunction(o, 1, 3, 10);
+        listF1.floorIndexOfX(0.9);
+    }
+
 }

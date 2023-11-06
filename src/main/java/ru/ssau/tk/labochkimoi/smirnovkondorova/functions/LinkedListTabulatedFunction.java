@@ -61,17 +61,17 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
     }
 
 
-    public LinkedListTabulatedFunction(double[] xValues, double[] yValues) {
+    public LinkedListTabulatedFunction(double[] xValues, double[] yValues) throws IllegalArgumentException {
         int length = xValues.length;
-        if (length > 0) {
-            for (int i = 0; i < length; i++) {
-                addNode(xValues[i], yValues[i]);
-            }
-        } else head = null;
+        if (length < 2)
+            throw new IllegalArgumentException("Длина меньше минимальной");
+        for (int i = 0; i < length; i++)
+            addNode(xValues[i], yValues[i]);
     }
 
-
-    public LinkedListTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
+    public LinkedListTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) throws IllegalArgumentException {
+        if (count<2)
+            throw new IllegalArgumentException("Длина меньше минимальной");
         if (xFrom > xTo) {
             double temp = xFrom;
             xFrom = xTo;
@@ -84,9 +84,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
             addNode(xFrom, source.apply(xFrom));
             xFrom += d;
         }
-        if (count > 0) {
             addNode(xTo, source.apply(xTo));
-        }
     }
 
 
@@ -105,8 +103,11 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
     }
 
 
-    protected int floorIndexOfX(double x) {
+    protected int floorIndexOfX(double x) throws IllegalArgumentException {
         Node search = head;
+        if (x<head.x){
+            throw new IllegalArgumentException("x меньше левой границы");
+        }
         int index = 0;
         if (search.x < x) {
             while (search.x < x && search.next != head) {
@@ -119,44 +120,32 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
 
 
     protected double extrapolateLeft(double x) {
-        if (count < 2) {
-            return (head.y);
-        } else {
             double leftX = getX(0);
             double rightX = getX(1);
             double leftY = getY(0);
             double rightY = getY(1);
 
             return interpolate(x, leftX, rightX, leftY, rightY);
-        }
     }
 
 
     protected double extrapolateRight(double x) {
-        if (count < 2) {
-            return (head.y);
-        } else {
             double leftX = getX(count - 2);
             double rightX = getX(count - 1);
             double leftY = getY(count - 2);
             double rightY = getY(count - 1);
 
             return interpolate(x, leftX, rightX, leftY, rightY);
-        }
     }
 
 
     protected double interpolate(double x, int floorIndex) {
-        if (count < 2) {
-            return (head.y);
-        } else {
             double leftX = getX(floorIndex);
             double rightX = getX(floorIndex + 1);
             double leftY = getY(floorIndex);
             double rightY = getY(floorIndex + 1);
 
             return interpolate(x, leftX, rightX, leftY, rightY);
-        }
     }
 
 

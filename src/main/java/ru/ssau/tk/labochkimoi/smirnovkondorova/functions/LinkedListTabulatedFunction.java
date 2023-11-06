@@ -40,7 +40,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         }
 
         @Override
-        public Node clone()  {
+        public Object clone()  {
             return new Node(x, y);
         }
     }
@@ -265,7 +265,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
     }
 
     @Override
-    public LinkedListTabulatedFunction clone() {
+    public Object clone() {
         double[] xValues = new double[count];
         double[] yValues = new double[count];
 

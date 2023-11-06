@@ -1,5 +1,5 @@
 package ru.ssau.tk.labochkimoi.smirnovkondorova.functions;
-
+import ru.ssau.tk.labochkimoi.smirnovkondorova.exceptions.InterpolationException;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -146,12 +146,13 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
 
 
     protected double interpolate(double x, int floorIndex) {
-        double leftX = getX(floorIndex);
-        double rightX = getX(floorIndex + 1);
-        double leftY = getY(floorIndex);
-        double rightY = getY(floorIndex + 1);
-
-        return interpolate(x, leftX, rightX, leftY, rightY);
+        if (x <= floorIndex && x >= floorIndex - 1){
+            double leftX = getX(floorIndex);
+            double rightX = getX(floorIndex + 1);
+            double leftY = getY(floorIndex);
+            double rightY = getY(floorIndex + 1);
+            return interpolate(x, leftX, rightX, leftY, rightY);
+        } else throw new InterpolationException("X not interval");
     }
 
 

@@ -1,9 +1,10 @@
 package ru.ssau.tk.labochkimoi.smirnovkondorova.functions;
 
-
+import ru.ssau.tk.labochkimoi.smirnovkondorova.exceptions.InterpolationException;
+import ru.ssau.tk.labochkimoi.smirnovkondorova.exceptions.ArrayIsNotSortedException;
+import ru.ssau.tk.labochkimoi.smirnovkondorova.exceptions.DifferentLengthOfArraysException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 
 public class ArrayTabulatedFunctionTest {
     double[] xValue = {1, 2, 3, 4, 5};
@@ -103,5 +104,28 @@ public class ArrayTabulatedFunctionTest {
     {
         ArrayTabulatedFunction arrayTabulatedFunction1 = new ArrayTabulatedFunction(xValue, yValue);
         arrayTabulatedFunction1.floorIndexOfX(0);
+    }
+    @Test
+    void ArrayTabulatedFunctionLengthException() {
+        double[] xValue2 = {0, 1, 2};
+        double[] yValue2 = {3, 4, 5, 6};
+        Assert.assertThrows(DifferentLengthOfArraysException.class, () -> {
+            ArrayTabulatedFunction arrTabulatedFunction2 = new ArrayTabulatedFunction(xValue2, yValue2);
+        });
+    }
+
+    @Test
+    void ArrayTabulatedFunctionSortedException() {
+        double[] xValue5 = {1, 4, 2, 5, 3, 0};
+        double[] yValue5 = {0, 1, 2, 3, 4, 5};
+        Assert.assertThrows(ArrayIsNotSortedException.class, () -> {
+            ArrayTabulatedFunction arrTabulatedFunction25 = new ArrayTabulatedFunction(xValue5, yValue5);
+        });
+    }
+    @Test
+    void interpolateTestException() {
+        Assert.assertThrows(InterpolationException.class, () -> {
+            arrayTabulatedFunction.interpolate(5.5, 5);
+        });
     }
 }

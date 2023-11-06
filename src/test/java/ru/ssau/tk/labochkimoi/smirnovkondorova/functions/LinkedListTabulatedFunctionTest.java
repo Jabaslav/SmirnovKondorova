@@ -1,5 +1,8 @@
 package ru.ssau.tk.labochkimoi.smirnovkondorova.functions;
 
+import ru.ssau.tk.labochkimoi.smirnovkondorova.exceptions.InterpolationException;
+import ru.ssau.tk.labochkimoi.smirnovkondorova.exceptions.ArrayIsNotSortedException;
+import ru.ssau.tk.labochkimoi.smirnovkondorova.exceptions.DifferentLengthOfArraysException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -445,5 +448,29 @@ public class LinkedListTabulatedFunctionTest {
             Stringer.append((int)point.x).append(" ");
         }
         assertEquals(Stringer.toString(),"0 1 2 3 4 5 6 7 8 9 10 ");
+    }
+    @Test
+    void LinkedListTabulatedFunctionLengthException() {
+        double[] xValue2 = {1, 2, 3};
+        double[] yValue2 = {4, 5};
+        assertThrows(DifferentLengthOfArraysException.class, () -> {
+            LinkedListTabulatedFunction linkedListTabulatedFunction2 = new LinkedListTabulatedFunction(xValue2, yValue2);
+        });
+    }
+
+    @Test
+    void LinkedListTabulatedFunctionSortedException() {
+        double[] xValue2 = {1, 4, 3, 2, 5, 0};
+        double[] yValue2 = {0, 1, 2, 3, 4, 5};
+        assertThrows(ArrayIsNotSortedException.class, () -> {
+            LinkedListTabulatedFunction linkedListTabulatedFunction25 = new LinkedListTabulatedFunction(xValue2, yValue2);
+        });
+    }
+    @Test
+    void LinkedListInterpolateTestException() {
+        LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(new double[]{1, 2, 3}, new double[]{4, 5, 6});
+        assertThrows(InterpolationException.class, () -> {
+            function.interpolate(5.5, 5);
+        });
     }
 }

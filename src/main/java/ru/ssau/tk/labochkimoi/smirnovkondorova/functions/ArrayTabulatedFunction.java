@@ -1,5 +1,7 @@
 package ru.ssau.tk.labochkimoi.smirnovkondorova.functions;
 import java.util.Arrays;
+import java.util.Iterator;
+
 public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements TabulatedFunction, Cloneable {
     private final double[] xValues;
     private final double[] yValues;
@@ -126,5 +128,10 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
     }
     public Object clone() {
         return new ArrayTabulatedFunction(xValues.clone(), yValues.clone());
+    }
+
+    public Iterator<Point> iterator() throws UnsupportedOperationException
+    {
+        throw new UnsupportedOperationException();
     }
 }

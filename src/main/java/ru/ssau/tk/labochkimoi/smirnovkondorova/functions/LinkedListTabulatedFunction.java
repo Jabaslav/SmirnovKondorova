@@ -1,6 +1,8 @@
 package ru.ssau.tk.labochkimoi.smirnovkondorova.functions;
 
 
+import java.util.Iterator;
+
 public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Cloneable {
     private Node head;
 
@@ -265,5 +267,10 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
             counter = counter.next;
         }
         return (new LinkedListTabulatedFunction(xValues, yValues));
+    }
+
+    public Iterator<Point> iterator() throws UnsupportedOperationException
+    {
+        throw new UnsupportedOperationException();
     }
 }

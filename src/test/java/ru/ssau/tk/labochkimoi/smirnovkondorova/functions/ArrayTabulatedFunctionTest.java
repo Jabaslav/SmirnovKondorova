@@ -3,6 +3,7 @@ package ru.ssau.tk.labochkimoi.smirnovkondorova.functions;
 import ru.ssau.tk.labochkimoi.smirnovkondorova.exceptions.InterpolationException;
 import ru.ssau.tk.labochkimoi.smirnovkondorova.exceptions.ArrayIsNotSortedException;
 import ru.ssau.tk.labochkimoi.smirnovkondorova.exceptions.DifferentLengthOfArraysException;
+import java.util.Iterator;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -127,5 +128,23 @@ public class ArrayTabulatedFunctionTest {
         Assert.assertThrows(InterpolationException.class, () -> {
             arrayTabulatedFunction.interpolate(5.5, 5);
         });
+    }
+    @Test
+    void arrayTabulatedIteratorTestException() {
+        Iterator<Point> iterator = arrayTabulatedFunction.iterator();
+        int i = 0;
+        while (iterator.hasNext()) {
+            Point point = iterator.next();
+            Assert.assertEquals(xValue[i], point.x);
+            Assert.assertEquals(yValue[i], point.y);
+            ++i;
+        }
+        i = 0;
+        for (Point point : arrayTabulatedFunction) {
+            Assert.assertEquals(xValue[i], point.x);
+            Assert.assertEquals(yValue[i], point.y);
+            ++i;
+        }
+
     }
 }

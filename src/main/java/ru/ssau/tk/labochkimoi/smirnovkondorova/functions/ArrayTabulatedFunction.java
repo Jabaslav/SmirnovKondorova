@@ -1,6 +1,9 @@
 package ru.ssau.tk.labochkimoi.smirnovkondorova.functions;
+
+import ru.ssau.tk.labochkimoi.smirnovkondorova.exceptions.InterpolationException;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements TabulatedFunction, Cloneable {
     private final double[] xValues;
@@ -92,11 +95,14 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
     }
 
     public double interpolate(double x, int floorIndex) {
-        double leftX = getX(floorIndex - 1);
-        double rightX = getX(floorIndex);
-        double leftY = getY(floorIndex - 1);
-        double rightY = getY(floorIndex);
-        return interpolate(x, leftX, rightX, leftY, rightY);
+        if (x < floorIndex && x > floorIndex - 1) {
+            double leftX = getX(floorIndex - 1);
+            double rightX = getX(floorIndex);
+            double leftY = getY(floorIndex - 1);
+            double rightY = getY(floorIndex);
+            return interpolate(x, leftX, rightX, leftY, rightY);
+        } else throw new InterpolationException("x not interval");
+
     }
     protected double extrapolateLeft(double x) {
         return (yValues[0] + (((yValues[1] - yValues[0]) / (xValues[1] - xValues[0])) * (x - xValues[0])));
@@ -131,8 +137,19 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
         return new ArrayTabulatedFunction(xValues.clone(), yValues.clone());
     }
 
-    public Iterator<Point> iterator() throws UnsupportedOperationException
-    {
-        throw new UnsupportedOperationException();
+    public Iterator<Point> iterator() {
+        return new Iterator<Point>() {
+            private int i = 0;
+            public boolean hasNext() {
+                return (i < count);
+            }
+            public Point next() {
+                if (hasNext()) {
+                    Point point = new Point(xValues[i], yValues[i]);
+                    ++i;
+                    return point;
+                } else throw new NoSuchElementException();
+            }
+        };
     }
 }

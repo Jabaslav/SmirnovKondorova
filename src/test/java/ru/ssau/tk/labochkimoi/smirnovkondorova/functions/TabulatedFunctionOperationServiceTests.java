@@ -2,6 +2,7 @@ package ru.ssau.tk.labochkimoi.smirnovkondorova.functions;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import ru.ssau.tk.labochkimoi.smirnovkondorova.functions.factory.LinkedListTabulatedFunctionFactory;
 import ru.ssau.tk.labochkimoi.smirnovkondorova.operations.TabulatedFunctionOperationService;
 
 public class TabulatedFunctionOperationServiceTests {
@@ -13,6 +14,7 @@ public class TabulatedFunctionOperationServiceTests {
     LinkedListTabulatedFunction func3 = new LinkedListTabulatedFunction(xValue, yValue1);
     LinkedListTabulatedFunction func4 = new LinkedListTabulatedFunction(xValue,yValue2);
     TabulatedFunctionOperationService operation = new TabulatedFunctionOperationService();
+    TabulatedFunctionOperationService operation2 = new TabulatedFunctionOperationService(new LinkedListTabulatedFunctionFactory());
 
     @Test
     void asPointsTest() {
@@ -59,6 +61,52 @@ public class TabulatedFunctionOperationServiceTests {
         TabulatedFunction result3 = operation.subtract(func1, func4);
         for (int i = 0; i < result3.getCount(); i++) {
             Assert.assertEquals(yValue1[i] - yValue2[i], result3.getY(i));
+        }
+    }
+
+    @Test
+    void multiplyTest1() {
+        ArrayTabulatedFunction result1 = (ArrayTabulatedFunction) operation.multiply(func1, func2);
+        for (int i = 0; i < result1.getCount(); i++) {
+            Assert.assertEquals(yValue1[i] * yValue2[i], result1.getY(i));
+        }
+    }
+@Test
+    void multiplyTest2() {
+    LinkedListTabulatedFunction result2 = (LinkedListTabulatedFunction) operation2.multiply(func4, func3);
+    for (int i = 0; i < result2.getCount(); i++) {
+        Assert.assertEquals(yValue2[i] * yValue1[i], result2.getY(i));
+    }
+
+    }
+    @Test
+    void multiplyTest3() {
+        TabulatedFunction result3 = operation2.multiply(func1, func4);
+        for (int i = 0; i < result3.getCount(); i++) {
+            Assert.assertEquals(yValue1[i] * yValue2[i], result3.getY(i));
+        }
+    }
+    @Test
+    void divideTest1() {
+        ArrayTabulatedFunction result1 = (ArrayTabulatedFunction) operation.divide(func1, func2);
+        for (int i = 0; i < result1.getCount(); i++) {
+            Assert.assertEquals(yValue1[i] / yValue2[i], result1.getY(i));
+        }
+    }
+
+    @Test
+    void divideTest2() {
+        LinkedListTabulatedFunction result2 = (LinkedListTabulatedFunction) operation2.divide(func4, func3);
+        for (int i = 0; i < result2.getCount(); i++) {
+            Assert.assertEquals(yValue2[i] / yValue1[i], result2.getY(i));
+        }
+    }
+
+    @Test
+    void divideTest3() {
+        TabulatedFunction result3 = operation.divide(func1, func4);
+        for (int i = 0; i < result3.getCount(); i++) {
+            Assert.assertEquals(yValue1[i] / yValue2[i], result3.getY(i));
         }
     }
 }

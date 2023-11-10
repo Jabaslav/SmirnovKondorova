@@ -2,7 +2,6 @@ package ru.ssau.tk.labochkimoi.smirnovkondorova.operations;
 
 import org.testng.annotations.Test;
 import ru.ssau.tk.labochkimoi.smirnovkondorova.functions.*;
-import ru.ssau.tk.labochkimoi.smirnovkondorova.functions.factory.ArrayTabulatedFunctionFactory;
 import ru.ssau.tk.labochkimoi.smirnovkondorova.functions.factory.LinkedListTabulatedFunctionFactory;
 
 import static org.testng.Assert.*;

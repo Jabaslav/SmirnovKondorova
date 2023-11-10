@@ -66,4 +66,14 @@ public class TabulatedFunctionOperationService {
         BiOperation operation = (u, v) -> u - v;
         return doOperation(firstFunction, secondFunction, operation);
     }
+
+    public TabulatedFunction multiply(TabulatedFunction firstFunction, TabulatedFunction secondFunction) {
+        BiOperation operation = (u, v) -> u * v;
+        return doOperation(firstFunction, secondFunction, operation);
+    }
+
+    public TabulatedFunction divide(TabulatedFunction firstFunction, TabulatedFunction secondFunction) {
+        BiOperation operation = (u, v) -> u / v;
+        return doOperation(firstFunction, secondFunction, operation);
+    }
 }

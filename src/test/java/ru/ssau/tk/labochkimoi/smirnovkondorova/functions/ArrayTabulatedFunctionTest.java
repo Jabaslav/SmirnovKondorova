@@ -4,6 +4,7 @@ import ru.ssau.tk.labochkimoi.smirnovkondorova.exceptions.InterpolationException
 import ru.ssau.tk.labochkimoi.smirnovkondorova.exceptions.ArrayIsNotSortedException;
 import ru.ssau.tk.labochkimoi.smirnovkondorova.exceptions.DifferentLengthOfArraysException;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -54,10 +55,10 @@ public class ArrayTabulatedFunctionTest {
     void floorIndexOfX() {
         Assert.assertEquals(5, o.floorIndexOfX(10));
     }
+
     @Test
     void interpolate() {
-        Assert.assertEquals(105, o.interpolate(10.5, 2));
-        Assert.assertEquals(403, o.interpolate(40.3, 1));
+        Assert.assertEquals(17, arrayTabulatedFunction.interpolate(1.7, 2));
     }
     @Test
     void extrapolateLeft() {

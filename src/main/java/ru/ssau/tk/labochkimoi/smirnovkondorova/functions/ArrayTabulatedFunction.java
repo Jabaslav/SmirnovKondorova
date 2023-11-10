@@ -93,16 +93,14 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
             }
         }
     }
-
-    public double interpolate(double x, int floorIndex) {
+    protected double interpolate(double x, int floorIndex) {
         if (x < floorIndex && x > floorIndex - 1) {
             double leftX = getX(floorIndex - 1);
             double rightX = getX(floorIndex);
             double leftY = getY(floorIndex - 1);
             double rightY = getY(floorIndex);
             return interpolate(x, leftX, rightX, leftY, rightY);
-        } else throw new InterpolationException("x not interval");
-
+        } else throw new InterpolationException("X не лежит в интервале");
     }
     protected double extrapolateLeft(double x) {
         return (yValues[0] + (((yValues[1] - yValues[0]) / (xValues[1] - xValues[0])) * (x - xValues[0])));

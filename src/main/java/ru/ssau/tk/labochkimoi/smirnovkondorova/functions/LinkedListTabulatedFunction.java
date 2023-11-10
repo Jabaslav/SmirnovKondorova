@@ -146,13 +146,17 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
 
 
     protected double interpolate(double x, int floorIndex) {
-        if (x <= floorIndex && x >= floorIndex - 1){
+        if (x < getX(floorIndex) || x > getX(floorIndex+1)){
+            throw new InterpolationException("X not interval");
+        }
+        else
+        {
             double leftX = getX(floorIndex);
             double rightX = getX(floorIndex + 1);
             double leftY = getY(floorIndex);
             double rightY = getY(floorIndex + 1);
             return interpolate(x, leftX, rightX, leftY, rightY);
-        } else throw new InterpolationException("X not interval");
+        }
     }
 
 

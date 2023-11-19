@@ -3,8 +3,6 @@ package ru.ssau.tk.labochkimoi.smirnovkondorova.functions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.*;
-
 public class AbstractTabulatedFunctionTest {
 
     @Test
@@ -17,7 +15,6 @@ public class AbstractTabulatedFunctionTest {
 
     @Test
     public void testTestToString2() {
-        IdentityFunction o = new IdentityFunction();
         double[] xVal = new double[]{1, 2, 3, 4, 5};
         double[] yVal = new double[]{2, 3, 4, 5, 6};
         ArrayTabulatedFunction listF = new ArrayTabulatedFunction(xVal, yVal);

@@ -338,7 +338,7 @@ public class LinkedListTabulatedFunctionTest {
     }
 
     @Test
-    public void testLLTFtoString1() {
+    public void testLinkedListTabulatedFunctionToString1() {
         IdentityFunction o = new IdentityFunction();
         double[] xVal = new double[]{1, 2, 3, 4, 5};
         double[] yVal = new double[xVal.length];
@@ -346,11 +346,11 @@ public class LinkedListTabulatedFunctionTest {
             yVal[i] = o.apply(xVal[i]);
         }
         LinkedListTabulatedFunction listF = new LinkedListTabulatedFunction(xVal, yVal);
-        assertEquals(listF.toString(), "(1.0; 1.0) (2.0; 2.0) (3.0; 3.0) (4.0; 4.0) (5.0; 5.0) ");
+        assertEquals(listF.toString(), "LinkedListTabulatedFunction count = 5\n[1.0; 1.0]\n[2.0; 2.0]\n[3.0; 3.0]\n[4.0; 4.0]\n[5.0; 5.0]");
     }
 
     @Test
-    public void testLLTFtoString2() {
+    public void testLinkedListTabulatedFunctionToString2() {
         SqrFunction o = new SqrFunction();
         double[] xVal = new double[]{1, 2, 3, 4, 5};
         double[] yVal = new double[xVal.length];
@@ -358,11 +358,11 @@ public class LinkedListTabulatedFunctionTest {
             yVal[i] = o.apply(xVal[i]);
         }
         LinkedListTabulatedFunction listF = new LinkedListTabulatedFunction(xVal, yVal);
-        assertEquals(listF.toString(), "(1.0; 1.0) (2.0; 4.0) (3.0; 9.0) (4.0; 16.0) (5.0; 25.0) ");
+        assertEquals(listF.toString(), "LinkedListTabulatedFunction count = 5\n[1.0; 1.0]\n[2.0; 4.0]\n[3.0; 9.0]\n[4.0; 16.0]\n[5.0; 25.0]");
     }
 
     @Test
-    public void testLLTFClone()  {
+    public void testLinkedListTabulatedFunctionClone() {
         SqrFunction o = new SqrFunction();
         LinkedListTabulatedFunction listF1 = new LinkedListTabulatedFunction(o, 1, 3, 3);
         LinkedListTabulatedFunction listF2 = (LinkedListTabulatedFunction) listF1.clone();
@@ -371,7 +371,7 @@ public class LinkedListTabulatedFunctionTest {
     }
 
     @Test
-    public void testLLTFEquals1() {
+    public void testLinkedListTabulatedFunctionEquals1() {
         IdentityFunction o = new IdentityFunction();
         LinkedListTabulatedFunction listF1 = new LinkedListTabulatedFunction(o, 1, 3, 3);
         LinkedListTabulatedFunction listF2 = new LinkedListTabulatedFunction(o, 1, 3, 3);
@@ -384,7 +384,7 @@ public class LinkedListTabulatedFunctionTest {
     }
 
     @Test
-    public void testLLTFHashCode1() {
+    public void testLinkedListTabulatedFunctionHashCode1() {
         IdentityFunction o = new IdentityFunction();
         LinkedListTabulatedFunction listF1 = new LinkedListTabulatedFunction(o, 1, 3, 3);
         LinkedListTabulatedFunction listF2 = new LinkedListTabulatedFunction(o, 1, 3, 3);
@@ -396,16 +396,14 @@ public class LinkedListTabulatedFunctionTest {
 
     }
 
-    @Test (expectedExceptions={IllegalArgumentException.class})
-    public void IllegalArgumentTest1()
-    {
+    @Test(expectedExceptions = {IllegalArgumentException.class})
+    public void illegalArgumentTest1() {
         IdentityFunction o = new IdentityFunction();
         LinkedListTabulatedFunction listF1 = new LinkedListTabulatedFunction(o, 1, 3, 1);
     }
 
-    @Test (expectedExceptions={IllegalArgumentException.class})
-    public void IllegalArgumentTest2()
-    {
+    @Test(expectedExceptions = {IllegalArgumentException.class})
+    public void illegalArgumentTest2() {
         SqrFunction o = new SqrFunction();
         double[] xVal = new double[]{1.1};
         double[] yVal = new double[xVal.length];
@@ -415,42 +413,39 @@ public class LinkedListTabulatedFunctionTest {
         LinkedListTabulatedFunction listF = new LinkedListTabulatedFunction(xVal, yVal);
     }
 
-    @Test (expectedExceptions={IllegalArgumentException.class})
-    public void IllegalArgumentTest3()
-    {
+    @Test(expectedExceptions = {IllegalArgumentException.class})
+    public void illegalArgumentTest3() {
         IdentityFunction o = new IdentityFunction();
         LinkedListTabulatedFunction listF1 = new LinkedListTabulatedFunction(o, 1, 3, 10);
         listF1.floorIndexOfX(0.9);
     }
 
     @Test
-    public void IteratorTest1()
-    {
+    public void iteratorTest1() {
         IdentityFunction o = new IdentityFunction();
         LinkedListTabulatedFunction listF = new LinkedListTabulatedFunction(o, 0, 10, 11);
         Iterator<Point> iterator = listF.iterator();
         StringBuilder Stringer = new StringBuilder();
-        while (iterator.hasNext())
-        { Point point = iterator.next();
-            Stringer.append((int)point.x).append(" ");
+        while (iterator.hasNext()) {
+            Point point = iterator.next();
+            Stringer.append((int) point.x).append(" ");
         }
-        assertEquals(Stringer.toString(),"0 1 2 3 4 5 6 7 8 9 10 ");
+        assertEquals(Stringer.toString(), "0 1 2 3 4 5 6 7 8 9 10 ");
     }
 
     @Test
-    public void IteratorTest2()
-    {
+    public void iteratorTest2() {
         IdentityFunction o = new IdentityFunction();
         LinkedListTabulatedFunction listF = new LinkedListTabulatedFunction(o, 0, 10, 11);
         StringBuilder Stringer = new StringBuilder();
-        for (Point point: listF)
-        {
-            Stringer.append((int)point.x).append(" ");
+        for (Point point : listF) {
+            Stringer.append((int) point.x).append(" ");
         }
-        assertEquals(Stringer.toString(),"0 1 2 3 4 5 6 7 8 9 10 ");
+        assertEquals(Stringer.toString(), "0 1 2 3 4 5 6 7 8 9 10 ");
     }
+
     @Test
-    void LinkedListTabulatedFunctionLengthException() {
+    void linkedListTabulatedFunctionLengthException() {
         double[] xValue2 = {1, 2, 3};
         double[] yValue2 = {4, 5};
         assertThrows(DifferentLengthOfArraysException.class, () -> {
@@ -459,15 +454,16 @@ public class LinkedListTabulatedFunctionTest {
     }
 
     @Test
-    void LinkedListTabulatedFunctionSortedException() {
+    void linkedListTabulatedFunctionSortedException() {
         double[] xValue2 = {1, 4, 3, 2, 5, 0};
         double[] yValue2 = {0, 1, 2, 3, 4, 5};
         assertThrows(ArrayIsNotSortedException.class, () -> {
             LinkedListTabulatedFunction linkedListTabulatedFunction25 = new LinkedListTabulatedFunction(xValue2, yValue2);
         });
     }
+
     @Test
-    void LinkedListInterpolateTestException() {
+    void linkedListInterpolateTestException() {
         LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(new double[]{1, 2, 3}, new double[]{4, 5, 6});
         assertThrows(InterpolationException.class, () -> {
             function.interpolate(5.5, 5);

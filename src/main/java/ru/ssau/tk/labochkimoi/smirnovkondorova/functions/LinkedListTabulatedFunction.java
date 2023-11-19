@@ -215,7 +215,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         return (head.prev.x);
     }
 
-    @Override
+    /*@Override
     public String toString() {
         StringBuilder list = new StringBuilder();
         Node counter = head;
@@ -224,7 +224,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
             counter = counter.next;
         }
         return list.toString();
-    }
+    }*/
 
     @Override
     public boolean equals(Object o) {

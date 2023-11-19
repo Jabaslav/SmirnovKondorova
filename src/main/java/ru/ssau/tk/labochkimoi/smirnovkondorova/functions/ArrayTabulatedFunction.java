@@ -109,13 +109,13 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
     protected double extrapolateRight(double x) {
         return (yValues[count - 2] + (((yValues[count - 1] - yValues[count - 2]) / (xValues[count - 1] - xValues[count - 2])) * (x - xValues[count - 2])));
     }
-    public String toString() {
+    /*public String toString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < count; i++) {
             sb.append("(").append(xValues[i]).append(";").append(yValues[i]).append(") ");
         }
         return sb.toString();
-    }
+    }*/
     public boolean equals(Object o) {
         return this.getClass() == o.getClass() &&
                 Arrays.equals(((ArrayTabulatedFunction) o).xValues, xValues) &&

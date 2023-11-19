@@ -23,7 +23,7 @@ public class ArrayTabulatedFunctionSerialization {
             e.printStackTrace();
         }
 
-        try (BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream("output/serialized_array_functions.bin"))) {
+        try (BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream("input/serialized_array_functions.bin"))) {
             System.out.println(FunctionsIO.deserialize(inputStream));
             System.out.println(FunctionsIO.deserialize(inputStream));
             System.out.println(FunctionsIO.deserialize(inputStream));

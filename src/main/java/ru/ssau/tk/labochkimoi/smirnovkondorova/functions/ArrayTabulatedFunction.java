@@ -1,11 +1,15 @@
 package ru.ssau.tk.labochkimoi.smirnovkondorova.functions;
 
 import ru.ssau.tk.labochkimoi.smirnovkondorova.exceptions.InterpolationException;
+
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.io.Serializable;
 
-public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements TabulatedFunction, Cloneable {
+public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Cloneable, Serializable {
+
+    private static final long serialVersionUID = 123456789L;
     private final double[] xValues;
     private final double[] yValues;
 

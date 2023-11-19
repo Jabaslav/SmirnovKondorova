@@ -57,21 +57,31 @@ final class FunctionsIO {
     public static void writeTabulatedFunction(BufferedOutputStream outputStream, TabulatedFunction function) throws IOException {
         DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
         dataOutputStream.writeInt(function.getCount());
-        dataOutputStream.writeChar('\n');
-
         for (Point point : function) {
             dataOutputStream.writeDouble(point.x);
-            dataOutputStream.writeChar(' ');
             dataOutputStream.writeDouble(point.y);
-            dataOutputStream.writeChar('\n');
         }
-
         dataOutputStream.flush();
     }
 
-    public static void serialize(BufferedOutputStream stream, TabulatedFunction function) throws IOException{
+    public static TabulatedFunction readTabulatedFunction(BufferedInputStream inputStream, TabulatedFunctionFactory factory) throws IOException {
+        DataInputStream dataInputStream = new DataInputStream(inputStream);
+        int count = dataInputStream.readInt();
+        double[] xVal = new double[count];
+        double[] yVal = new double[count];
+        for (int i = 0; i < count; i++) {
+            xVal[i] = dataInputStream.readDouble();
+            yVal[i] = dataInputStream.readDouble();
+        }
+
+        return factory.create(xVal, yVal);
+    }
+
+    public static void serialize(BufferedOutputStream stream, TabulatedFunction function) throws IOException {
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(stream);
         objectOutputStream.writeObject(function);
         objectOutputStream.flush();
     }
+
+
 }

@@ -1,18 +1,24 @@
 package ru.ssau.tk.labochkimoi.smirnovkondorova.functions;
+import org.jetbrains.annotations.NotNull;
 import ru.ssau.tk.labochkimoi.smirnovkondorova.exceptions.InterpolationException;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Cloneable {
+public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Cloneable, Serializable {
     private Node head;
+    @Serial
+    private static final long serialVersionUID = 12243648L;
 
-    protected static class Node implements Cloneable {
+    protected static class Node implements Cloneable, Serializable {
         public Node next;
         public Node prev;
         public double x;
         public double y;
-
+        @Serial
+        private static final long serialVersionUID = 122436L;
         Node(double x, double y) {
             this.x = x;
             this.y = y;
@@ -278,7 +284,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         return (new LinkedListTabulatedFunction(xValues, yValues));
     }
 
-    public Iterator<Point> iterator()
+    public @NotNull Iterator<Point> iterator()
     {
         Iterator<Point> iterator = new Iterator<Point>()
         {

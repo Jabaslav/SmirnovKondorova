@@ -3,9 +3,13 @@ package ru.ssau.tk.labochkimoi.smirnovkondorova.functions;
 import ru.ssau.tk.labochkimoi.smirnovkondorova.exceptions.ArrayIsNotSortedException;
 import ru.ssau.tk.labochkimoi.smirnovkondorova.exceptions.DifferentLengthOfArraysException;
 
-public abstract class AbstractTabulatedFunction implements TabulatedFunction {
-    protected int count;
+import java.io.Serial;
+import java.io.Serializable;
 
+public abstract class AbstractTabulatedFunction implements TabulatedFunction, Serializable {
+    protected int count;
+    @Serial
+    private static final long serialVersionUID = 12L;
     protected abstract int floorIndexOfX(double x);
 
     protected abstract double extrapolateLeft(double x);

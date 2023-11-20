@@ -2,11 +2,8 @@ package ru.ssau.tk.labochkimoi.smirnovkondorova.io;
 
 import ru.ssau.tk.labochkimoi.smirnovkondorova.functions.ArrayTabulatedFunction;
 import ru.ssau.tk.labochkimoi.smirnovkondorova.functions.LinkedListTabulatedFunction;
-import ru.ssau.tk.labochkimoi.smirnovkondorova.functions.TabulatedFunction;
 import ru.ssau.tk.labochkimoi.smirnovkondorova.functions.factory.ArrayTabulatedFunctionFactory;
 import ru.ssau.tk.labochkimoi.smirnovkondorova.functions.factory.LinkedListTabulatedFunctionFactory;
-import ru.ssau.tk.labochkimoi.smirnovkondorova.functions.factory.TabulatedFunctionFactory;
-import ru.ssau.tk.labochkimoi.smirnovkondorova.operations.DifferentialOperator;
 import ru.ssau.tk.labochkimoi.smirnovkondorova.operations.TabulatedDifferentialOperator;
 
 import java.io.*;

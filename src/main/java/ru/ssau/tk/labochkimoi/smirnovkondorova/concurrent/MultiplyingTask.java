@@ -7,11 +7,12 @@ public class MultiplyingTask implements Runnable{
         this.tabulatedFunction = tabulatedFunction;
     }
 
-    @Override
     public void run() {
         for (int i = 0; i < tabulatedFunction.getCount(); i++) {
-            tabulatedFunction.setY( i,tabulatedFunction.getY(i) * 2);
+            synchronized (tabulatedFunction) {
+                tabulatedFunction.setY( i,tabulatedFunction.getY(i) * 2);}
         }
+
         System.out.println("Текущий поток (" + Thread.currentThread().getName() + ") закончил выполнение задачи.");
     }
 }

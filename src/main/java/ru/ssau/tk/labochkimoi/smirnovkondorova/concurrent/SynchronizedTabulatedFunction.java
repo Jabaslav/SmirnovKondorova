@@ -94,4 +94,14 @@ public class SynchronizedTabulatedFunction implements TabulatedFunction {
             return delegation.apply(x);
         }
     }
+
+    public interface Operation<T> {
+        T apply(SynchronizedTabulatedFunction synchronizedFunction);
+    }
+
+    public <T> T doSynchronously(Operation<T> operation) {
+        synchronized (delegation) {
+            return operation.apply(this);
+        }
+    }
 }

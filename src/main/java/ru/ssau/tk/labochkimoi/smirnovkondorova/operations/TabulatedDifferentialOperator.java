@@ -4,6 +4,7 @@ import ru.ssau.tk.labochkimoi.smirnovkondorova.functions.Point;
 import ru.ssau.tk.labochkimoi.smirnovkondorova.functions.TabulatedFunction;
 import ru.ssau.tk.labochkimoi.smirnovkondorova.functions.factory.ArrayTabulatedFunctionFactory;
 import ru.ssau.tk.labochkimoi.smirnovkondorova.functions.factory.TabulatedFunctionFactory;
+import ru.ssau.tk.labochkimoi.smirnovkondorova.concurrent.SynchronizedTabulatedFunction;
 
 public class TabulatedDifferentialOperator implements DifferentialOperator<TabulatedFunction> {
     TabulatedFunctionFactory factory;
@@ -30,5 +31,17 @@ public class TabulatedDifferentialOperator implements DifferentialOperator<Tabul
         }
         yValues[length-1]= yValues[length-2];
         return factory.create(xValues, yValues);
+    }
+
+    public SynchronizedTabulatedFunction deriveSynchronously(TabulatedFunction function) {
+        SynchronizedTabulatedFunction synchronizedFunction;
+
+        if (function instanceof SynchronizedTabulatedFunction) {
+            synchronizedFunction = (SynchronizedTabulatedFunction) function;
+        } else {
+            synchronizedFunction = new SynchronizedTabulatedFunction(function);
+        }
+
+        return synchronizedFunction.doSynchronously(func -> new SynchronizedTabulatedFunction(derive(func)));
     }
 }

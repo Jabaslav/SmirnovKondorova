@@ -76,8 +76,8 @@ public class SynchronizedTabulatedFunction implements TabulatedFunction {
     @Override
     public @NotNull Iterator<Point> iterator() {
         synchronized (delegation) {
-            Point[] copy = TabulatedFunctionOperationService.asPoints(this);
-            return new Iterator<Point>() {
+            Point[] copy = TabulatedFunctionOperationService.asPoints(delegation);
+            Iterator<Point> iterator = new Iterator<Point>() {
                 private int i = 0;
 
                 @Override
@@ -92,6 +92,7 @@ public class SynchronizedTabulatedFunction implements TabulatedFunction {
                     } else throw new NoSuchElementException();
                 }
             };
+            return iterator;
         }
     }
 

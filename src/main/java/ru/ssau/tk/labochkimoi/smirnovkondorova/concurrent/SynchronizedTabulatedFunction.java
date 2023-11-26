@@ -1,7 +1,9 @@
 package ru.ssau.tk.labochkimoi.smirnovkondorova.concurrent;
 
+import org.jetbrains.annotations.NotNull;
 import ru.ssau.tk.labochkimoi.smirnovkondorova.functions.TabulatedFunction;
 import ru.ssau.tk.labochkimoi.smirnovkondorova.functions.Point;
+import ru.ssau.tk.labochkimoi.smirnovkondorova.operations.TabulatedFunctionOperationService;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -71,21 +73,26 @@ public class SynchronizedTabulatedFunction implements TabulatedFunction {
         }
     }
 
-    @Override/* не знаю, насколько это правильно но оно без ошибок и я очень хотела спать..*/
-    public Iterator<Point> iterator() {
-        return new Iterator<Point>() {
-            private int i = 0;
-            public boolean hasNext() {
-                return (i < delegation.getCount());
-            }
-            public Point next() {
-                if (hasNext()) {
-                    Point point = new Point(delegation.getX(i), delegation.getY(i));
-                    ++i;
-                    return point;
-                } else throw new NoSuchElementException();
-            }
-        };
+    @Override
+    public @NotNull Iterator<Point> iterator() {
+        synchronized (delegation) {
+            Point[] copy = TabulatedFunctionOperationService.asPoints(this);
+            return new Iterator<Point>() {
+                private int i = 0;
+
+                @Override
+                public boolean hasNext() {
+                    return (i < copy.length);
+                }
+
+                @Override
+                public Point next() throws NoSuchElementException {
+                    if (this.hasNext()) {
+                        return copy[i++];
+                    } else throw new NoSuchElementException();
+                }
+            };
+        }
     }
 
     @Override

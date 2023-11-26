@@ -6,17 +6,18 @@ public class WriteTask implements Runnable {
     private final TabulatedFunction tabulatedFunction;
     private final double value;
 
-    public WriteTask(TabulatedFunction tabulatedFunction, double value)
-    {
+    public WriteTask(TabulatedFunction tabulatedFunction, double value) {
         this.tabulatedFunction = tabulatedFunction;
         this.value = value;
     }
 
     @Override
     public void run() {
-        for (int i = 0, count = tabulatedFunction.getCount(); i<count;i++) {
-            tabulatedFunction.setY(i, value);
-            System.out.println("Writing for index " + i + " complete");
+        for (int i = 0, count = tabulatedFunction.getCount(); i < count; i++) {
+            synchronized (tabulatedFunction) {
+                tabulatedFunction.setY(i, value);
+                System.out.println("Writing for index " + i + " complete");
+            }
         }
     }
 }

@@ -16,18 +16,6 @@ public class SynchronizedTabulatedFunctionTest {
     SynchronizedTabulatedFunction synchronizedTabulatedFunction=new SynchronizedTabulatedFunction(function);
 
     @Test
-    public void doSynchronously() {
-        SynchronizedTabulatedFunction.Operation<Double> operation = func -> {
-            double sum = 0;
-            for (Point el : synchronizedTabulatedFunction)
-                sum += el.y;
-            return sum;
-        };
-        double sumOfY = synchronizedTabulatedFunction.doSynchronously(operation);
-        Assert.assertEquals(150, sumOfY);
-    }
-
-    @Test
     public void methodsTest() {
         Assert.assertEquals(5, synchronizedTabulatedFunction.getCount());
         Assert.assertEquals(1, synchronizedTabulatedFunction.getX(0));
@@ -49,6 +37,52 @@ public class SynchronizedTabulatedFunctionTest {
             Assert.assertEquals(point.y, synchronizedTabulatedFunction.getY(i));
             ++i;
         }
+    }
+
+    @Test
+    public void doSynchronously1Test() {
+        SynchronizedTabulatedFunction.Operation<Double> operation = func -> {
+            double sum = 0;
+            for (Point el : synchronizedTabulatedFunction)
+                sum += el.y;
+            return sum;
+        };
+        double sumOfY = operation.apply(synchronizedTabulatedFunction);
+        Assert.assertEquals(150, sumOfY);
+    }
+
+    @Test
+    public void doSynchronously2Test() {
+        SynchronizedTabulatedFunction.Operation<Double> operation = func -> {
+            double sum = 0;
+            for (Point el : synchronizedTabulatedFunction)
+                sum += el.x;
+            return sum;
+        };
+        double sumOfX = operation.apply(synchronizedTabulatedFunction);
+        Assert.assertEquals(15, sumOfX);
+    }
+
+    @Test
+    public void doSynchronously3Test() {
+        SynchronizedTabulatedFunction.Operation<Void> operation = func -> {
+
+            synchronizedTabulatedFunction.setY(0, 2);
+            synchronizedTabulatedFunction.setY(1, 2);
+            return null;
+        };
+        operation.apply(synchronizedTabulatedFunction);
+        Assert.assertEquals(2, synchronizedTabulatedFunction.getY(0));
+        Assert.assertEquals(2, synchronizedTabulatedFunction.getY(1));
+    }
+
+    @Test
+    public void doSynchronously4Test() {
+        SynchronizedTabulatedFunction.Operation<Boolean> operation = func -> {
+            return synchronizedTabulatedFunction.getY(0) == synchronizedTabulatedFunction.getY(1);
+        };
+
+        Assert.assertTrue(operation.apply(synchronizedTabulatedFunction));
     }
 
 }

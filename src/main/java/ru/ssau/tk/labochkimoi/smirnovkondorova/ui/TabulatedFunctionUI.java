@@ -14,6 +14,8 @@ public class TabulatedFunctionUI extends JDialog {
     private JTextField pointsField;
     private JTable table;
     private DefaultTableModel tableModel;
+    private double[] xValues;
+    private double[] yValues;
 
     public TabulatedFunctionUI(MainFrame mainFrame) {
         setTitle("Tabulated Function Creator");
@@ -72,8 +74,8 @@ public class TabulatedFunctionUI extends JDialog {
 
             // Создаем табулированную функцию с использованием фабрики
             TabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
-            double[] xValues = new double[numberOfPoints];
-            double[] yValues = new double[numberOfPoints];
+            xValues = new double[numberOfPoints];
+            yValues = new double[numberOfPoints];
 
             for (int i = 0; i < numberOfPoints; i++) {
                 xValues[i] = Double.parseDouble(tableModel.getValueAt(i, 0).toString());
@@ -92,5 +94,25 @@ public class TabulatedFunctionUI extends JDialog {
 
     private void showError(String message) {
         JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    public double[] fillXValues(double[] values) {
+        for (int i = 0; i < values.length; i++) {
+            values[i] = Double.parseDouble(tableModel.getValueAt(i, 0).toString());
+        }
+        return values;
+    }
+
+    public double[] fillYValues(double[] values) {
+        for (int i = 0; i < values.length; i++) {
+            values[i] = Double.parseDouble(tableModel.getValueAt(i, 1).toString());
+        }
+        return values;
+    }
+    public double[] getxValues(){
+        return xValues;
+    }
+
+    public double[] getyValues(){
+        return yValues;
     }
 }

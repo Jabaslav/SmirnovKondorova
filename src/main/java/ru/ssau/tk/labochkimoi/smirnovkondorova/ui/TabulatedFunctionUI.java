@@ -1,8 +1,7 @@
-package ui;
+package ru.ssau.tk.labochkimoi.smirnovkondorova.ui;
 
 import ru.ssau.tk.labochkimoi.smirnovkondorova.functions.factory.ArrayTabulatedFunctionFactory;
 import ru.ssau.tk.labochkimoi.smirnovkondorova.functions.factory.TabulatedFunctionFactory;
-import ru.ssau.tk.labochkimoi.smirnovkondorova.functions.TabulatedFunction;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -10,16 +9,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class TabulatedFunctionUI extends JFrame {
+public class TabulatedFunctionUI extends JDialog {
 
     private JTextField pointsField;
     private JTable table;
     private DefaultTableModel tableModel;
 
-    public TabulatedFunctionUI() {
+    public TabulatedFunctionUI(MainFrame mainFrame) {
         setTitle("Tabulated Function Creator");
         setSize(400, 300);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setModalityType(DEFAULT_MODALITY_TYPE);
 
         pointsField = new JTextField(10);
         JButton createButton = new JButton("Create");
@@ -27,7 +27,7 @@ public class TabulatedFunctionUI extends JFrame {
         createButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                createTabulatedFunction();
+                createTabulatedFunction(mainFrame);
             }
         });
 
@@ -43,6 +43,7 @@ public class TabulatedFunctionUI extends JFrame {
         add(createInputPanel(), BorderLayout.NORTH);
         add(new JScrollPane(table), BorderLayout.CENTER);
         add(createButton, BorderLayout.SOUTH);
+        setVisible(true);
     }
     private JPanel createInputPanel() {
         JPanel inputPanel = new JPanel();
@@ -52,11 +53,11 @@ public class TabulatedFunctionUI extends JFrame {
         return inputPanel;
     }
 
-    private void createTabulatedFunction() {
+    private void createTabulatedFunction(MainFrame mainFrame) {
         try {
             int numberOfPoints = Integer.parseInt(pointsField.getText());
-            if (numberOfPoints <= 0) {
-                showError("Please enter a valid number of points.");
+            if (numberOfPoints < 2) {
+                ExceptionProcessor.showError("Please enter a valid number of points.");
                 return;
             }
 
@@ -79,23 +80,17 @@ public class TabulatedFunctionUI extends JFrame {
                 yValues[i] = Double.parseDouble(tableModel.getValueAt(i, 1).toString());
             }
 
-            TabulatedFunction tabulatedFunction = factory.create(xValues, yValues);
-            System.out.println("Tabulated Function created: " + tabulatedFunction);
+             mainFrame.database.add(factory.create(xValues, yValues));
+
 
             // Закрываем окно
             dispose();
         } catch (NumberFormatException ex) {
-            showError("Invalid input. Please enter a valid number.");
+            showError("Некорректный ввод. Попробуйте еще раз");
         }
     }
 
     private void showError(String message) {
         JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            new TabulatedFunctionUI().setVisible(true);
-        });
     }
 }

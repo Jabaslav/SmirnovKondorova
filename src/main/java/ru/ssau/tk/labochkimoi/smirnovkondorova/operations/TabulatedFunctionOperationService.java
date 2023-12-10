@@ -47,7 +47,7 @@ public class TabulatedFunctionOperationService {
         double[] yValues = new double[a.getCount()];
 
         for (int i = 0; i < a.getCount(); i++) {
-            if (pointsA[i].x != pointsB[i].x) {
+           if (pointsA[i].x != pointsB[i].x) {
                 throw new InconsistentFunctionsException("X values in the functions do not match");
             }
             xValues[i] = pointsA[i].x;
@@ -55,6 +55,9 @@ public class TabulatedFunctionOperationService {
         }
 
         return factory.create(xValues, yValues);
+    }
+    public void doOperation(double[] xValues1, double[] yValues1, double[] xValues2, double[] yValues2, BiOperation operation) {
+        doOperation(factory.create(xValues1, yValues1), factory.create(xValues2, yValues2), operation);
     }
 
     public TabulatedFunction add(TabulatedFunction firstFunction, TabulatedFunction secondFunction) {
@@ -75,5 +78,8 @@ public class TabulatedFunctionOperationService {
     public TabulatedFunction divide(TabulatedFunction firstFunction, TabulatedFunction secondFunction) {
         BiOperation operation = (u, v) -> u / v;
         return doOperation(firstFunction, secondFunction, operation);
+    }
+    public enum Operation {
+        add, subtract, multiply, divide
     }
 }

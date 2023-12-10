@@ -13,7 +13,7 @@ import java.util.Locale;
 import java.io.ObjectOutputStream;
 import java.io.BufferedOutputStream;
 
-final class FunctionsIO {
+public final class FunctionsIO {
     private FunctionsIO() {
         throw new UnsupportedOperationException();
     }

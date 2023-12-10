@@ -12,9 +12,23 @@ import java.awt.event.ActionListener;
 
 public class TabulatedFunctionUI extends JFrame {
 
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            new TabulatedFunctionUI().setVisible(true);
+        });
+    }
+
     private JTextField pointsField;
     private JTable table;
     private DefaultTableModel tableModel;
+    private MainUI mainUI;
+
+    private double[] xValues;
+    private double[] yValues;
+
+    public TabulatedFunctionUI(MainUI mainUI) {
+        this.mainUI = mainUI;
+    }
 
     public TabulatedFunctionUI() {
         setTitle("Tabulated Function Creator");
@@ -44,6 +58,7 @@ public class TabulatedFunctionUI extends JFrame {
         add(new JScrollPane(table), BorderLayout.CENTER);
         add(createButton, BorderLayout.SOUTH);
     }
+
     private JPanel createInputPanel() {
         JPanel inputPanel = new JPanel();
         inputPanel.setLayout(new FlowLayout());
@@ -71,13 +86,11 @@ public class TabulatedFunctionUI extends JFrame {
 
             // Создаем табулированную функцию с использованием фабрики
             TabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
-            double[] xValues = new double[numberOfPoints];
-            double[] yValues = new double[numberOfPoints];
+            xValues = new double[numberOfPoints];
+            yValues = new double[numberOfPoints];
 
-            for (int i = 0; i < numberOfPoints; i++) {
-                xValues[i] = Double.parseDouble(tableModel.getValueAt(i, 0).toString());
-                yValues[i] = Double.parseDouble(tableModel.getValueAt(i, 1).toString());
-            }
+            xValues = fillXValues(xValues);
+            yValues = fillYValues(yValues);
 
             TabulatedFunction tabulatedFunction = factory.create(xValues, yValues);
             System.out.println("Tabulated Function created: " + tabulatedFunction);
@@ -93,9 +106,25 @@ public class TabulatedFunctionUI extends JFrame {
         JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            new TabulatedFunctionUI().setVisible(true);
-        });
+    public double[] fillXValues(double[] values) {
+        for (int i = 0; i < values.length; i++) {
+            values[i] = Double.parseDouble(tableModel.getValueAt(i, 0).toString());
+        }
+        return values;
+    }
+
+    public double[] fillYValues(double[] values) {
+        for (int i = 0; i < values.length; i++) {
+            values[i] = Double.parseDouble(tableModel.getValueAt(i, 1).toString());
+        }
+        return values;
+    }
+
+    public double[] getxValues(){
+        return xValues;
+    }
+
+    public double[] getyValues(){
+        return yValues;
     }
 }

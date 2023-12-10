@@ -19,6 +19,8 @@ public class FunctionBasedCreation extends JFrame {
     private JTextField intervalEnd;
     HashMap<String, MathFunction> mathFunctionMap;
 
+    private LinkedListTabulatedFunction createdFunction;
+
     public FunctionBasedCreation() {
         this.setTitle("Создание на базе функции");
         this.setSize(470, 300);
@@ -86,7 +88,7 @@ public class FunctionBasedCreation extends JFrame {
             double intervalB = Double.parseDouble(intervalBegin.getText());
             double intervalE = Double.parseDouble(intervalEnd.getText());
 
-             LinkedListTabulatedFunction createdFunction = new LinkedListTabulatedFunctionFactory().create(mathFunctionMap.get(mathFunction), intervalB, intervalE, count);
+            createdFunction = new LinkedListTabulatedFunctionFactory().create(mathFunctionMap.get(mathFunction), intervalB, intervalE, count);
 
              System.out.println("LinkedListTabulatedFunction created: " + createdFunction);
              dispose();
@@ -102,5 +104,21 @@ public class FunctionBasedCreation extends JFrame {
         SwingUtilities.invokeLater(() -> {
             new FunctionBasedCreation().setVisible(true);
         });
+    }
+
+    public double[] getxValues(){
+        double[] xValues = new double[createdFunction.getCount()];
+        for (int i = 0; i < xValues.length; i++) {
+            xValues[i] = createdFunction.getX(i);
+        }
+        return xValues;
+    }
+
+    public double[] getyValues(){
+        double[] yValues = new double[createdFunction.getCount()];
+        for (int i = 0; i < yValues.length; i++) {
+            yValues[i] = createdFunction.getY(i);
+        }
+        return yValues;
     }
 }
